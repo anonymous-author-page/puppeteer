@@ -384,7 +384,7 @@ main.teaser-container {
 
 .teaser-input-card {
   grid-column: 1 / span 2;
-  width: calc((100% - 3px) / 2);
+  width: calc(50% - 1.5px);
   justify-self: center;
 }
 
