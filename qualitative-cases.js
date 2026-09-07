@@ -4,7 +4,6 @@ const BASELINE_METHODS = [
   ["SymphoMotion", "symphomotion"],
   ["VerseCrafter", "versecrafter"],
 ];
-const SCENE_LEGEND = "Cyan = Foreground · Rainbow = Camera";
 
 const QUALITATIVE_CASES = [
   {
@@ -207,7 +206,6 @@ function qualitativeCase(caseData, index) {
               loading="lazy"
               allow="fullscreen"
             ></iframe>
-            <span class="viewer-note">${SCENE_LEGEND}</span>
           </div>
         </figure>
       </div>

@@ -429,53 +429,6 @@ main.teaser-container {
   object-fit: cover;
 }
 
-.viewer-note {
-  position: absolute;
-  z-index: 2;
-  right: 7px;
-  bottom: 7px;
-  padding: 4px 7px;
-  border-radius: 5px;
-  background: rgb(0 0 0 / 60%);
-  color: #fff;
-  font-size: 11px;
-  font-weight: 600;
-  pointer-events: none;
-  white-space: nowrap;
-}
-
-.viewer-legend-item + .viewer-legend-item {
-  margin-left: 7px;
-}
-
-.viewer-legend-swatch {
-  display: inline-block;
-  width: 7px;
-  height: 7px;
-  margin-right: 3px;
-  border-radius: 50%;
-  vertical-align: 1px;
-}
-
-.viewer-legend-swatch.is-hiker {
-  background: #0070c0;
-}
-
-.viewer-legend-swatch.is-camel {
-  background: #ed7d31;
-}
-
-.viewer-legend-swatch.is-camera {
-  background: conic-gradient(
-    #ff5448,
-    #f6d35a,
-    #46cfb8,
-    #5865e6,
-    #9e4cd6,
-    #ff5448
-  );
-}
-
 .qualitative-section {
   order: 5;
   padding: 54px 24px 72px;
