@@ -6,7 +6,7 @@
   <meta name="color-scheme" content="light">
   <meta
     name="description"
-    content="Puppeteer controls video world models with editable rigid 3D scene puppets."
+    content="Puppeteer controls video world models with complete object geometry and rigid motion in a shared 3D space."
   >
   <title>Puppeteer — Controlling Video World Models with Rigid 3D Puppets</title>
   <link
@@ -64,8 +64,9 @@
     <div class="text-container">
       <p class="tldr">
         <strong>TL;DR:</strong>
-        Puppeteer directs camera motion, rigid object trajectories, and object
-        insertion through an editable 4D Scene Puppet.
+        Puppeteer uses complete object meshes and rigid trajectories in a
+        shared 3D space to jointly control the camera, existing objects, and
+        inserted objects in video world models.
       </p>
     </div>
   </section>
@@ -75,13 +76,26 @@
       <h2 class="section-title">Abstract</h2>
       <p class="abstract-copy">
         Directing a video world model requires control over the camera and
-        every object. Puppeteer is driven by the <em>Scene Puppet</em>, an
-        editable 4D representation in which canonical objects, a background
-        point cloud, and the camera share one 3D space. Users edit rigid object
-        and camera trajectories, optionally insert an object reconstructed
-        from a reference image, and render the resulting puppet as depth
-        control. A Puppet Motion Adapter turns this rigid control into video
-        with view-consistent appearance, illumination, and non-rigid motion.
+        every object. Cues in the image plane cannot express that control
+        precisely in 3D. Proxies lifted into 3D from the input, such as
+        tracked points or Gaussian blobs, capture only the visible shell of
+        each object: they provide no geometry for unobserved regions, and
+        moving them requires per-point trajectories that a user cannot
+        specify. We introduce <strong>Puppeteer</strong>, a video world model
+        driven by the <em>Scene Puppet</em>, a novel 4D representation with
+        complete, fixed geometry and rigid motion. Each object is a canonical
+        mesh, reconstructed once and moved only by a rigid transform per
+        frame. Explicit 3D space removes that ambiguity and gives the user a
+        more precise and intuitive interface. Complete object geometry avoids
+        hallucinating an object's unobserved side under large motion or heavy
+        occlusion. We render the puppet to a depth video and design a
+        <em>Puppet Motion Adapter</em> that turns it into a video with
+        high-fidelity, view-consistent appearance, illumination, and non-rigid
+        motion. We further introduce <em>Identity-Gated IoU (IG-IoU)</em>,
+        which measures how accurately the generated object follows the
+        specified motion while remaining the same object. Extensive
+        experiments show that Puppeteer achieves higher visual quality and
+        more accurate camera and object control than prior methods.
       </p>
     </div>
   </section>
@@ -90,11 +104,10 @@
     <main class="teaser-container">
       <div class="teaser-column-headings" aria-hidden="true">
         <span></span>
-        <span>Input Image</span>
-        <span>Object to Insert</span>
-        <span>Interactive Scene Puppet</span>
-        <span>Depth Control</span>
-        <span>Generated Video</span>
+        <span class="teaser-heading-input">Input Image</span>
+        <span class="teaser-heading-puppet">Interactive Scene Puppet</span>
+        <span class="teaser-heading-depth">Depth Control</span>
+        <span class="teaser-heading-video">Generated Video</span>
       </div>
 
       <article
@@ -112,7 +125,7 @@
           <p>Object Motion</p>
         </aside>
         <div class="media-grid">
-          <figure class="media-card">
+          <figure class="media-card teaser-input-card">
             <figcaption class="media-title">Input Image</figcaption>
             <div class="media-frame">
               <img
@@ -120,14 +133,6 @@
                 alt="Input image of a hiker"
               >
             </div>
-          </figure>
-
-          <figure class="media-card">
-            <figcaption class="media-title">Object to Insert</figcaption>
-            <div
-              class="media-frame new-object-placeholder"
-              aria-label="No object inserted"
-            ></div>
           </figure>
 
           <figure class="media-card">
@@ -194,22 +199,12 @@
           <p>Object Motion + Object Insertion</p>
         </aside>
         <div class="media-grid">
-          <figure class="media-card">
+          <figure class="media-card teaser-input-card">
             <figcaption class="media-title">Input Image</figcaption>
             <div class="media-frame">
               <img
                 src="./assets/case-1-input.png"
                 alt="Original input image of the hiker"
-              >
-            </div>
-          </figure>
-
-          <figure class="media-card">
-            <figcaption class="media-title">Object to Insert</figcaption>
-            <div class="media-frame">
-              <img
-                src="./assets/new-object-camel.jpg"
-                alt="Reference image of the camel to insert"
               >
             </div>
           </figure>
@@ -285,22 +280,12 @@
           <p>Joint Object and Camera Control</p>
         </aside>
         <div class="media-grid">
-          <figure class="media-card">
+          <figure class="media-card teaser-input-card">
             <figcaption class="media-title">Input Image</figcaption>
             <div class="media-frame">
               <img
                 src="./assets/case-1-input.png"
                 alt="Original input image of the hiker"
-              >
-            </div>
-          </figure>
-
-          <figure class="media-card">
-            <figcaption class="media-title">Object to Insert</figcaption>
-            <div class="media-frame">
-              <img
-                src="./assets/new-object-camel.jpg"
-                alt="Reference image of the camel to insert"
               >
             </div>
           </figure>
@@ -376,22 +361,12 @@
           <p>Joint Object and Camera Control</p>
         </aside>
         <div class="media-grid">
-          <figure class="media-card">
+          <figure class="media-card teaser-input-card">
             <figcaption class="media-title">Input Image</figcaption>
             <div class="media-frame">
               <img
                 src="./assets/case-1-input.png"
                 alt="Original input image of the hiker"
-              >
-            </div>
-          </figure>
-
-          <figure class="media-card">
-            <figcaption class="media-title">Object to Insert</figcaption>
-            <div class="media-frame">
-              <img
-                src="./assets/new-object-camel.jpg"
-                alt="Reference image of the camel to insert"
               >
             </div>
           </figure>
