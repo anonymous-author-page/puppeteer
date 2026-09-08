@@ -799,6 +799,10 @@ main.teaser-container {
   overscroll-behavior-x: contain;
 }
 
+.qualitative-baseline-row.has-ground-truth {
+  grid-template-columns: repeat(6, minmax(220px, 1fr));
+}
+
 .qualitative-baseline-row .media-title {
   min-height: 43px;
   font-size: 16px;

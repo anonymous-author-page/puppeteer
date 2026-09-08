@@ -150,6 +150,54 @@ const QUALITATIVE_CASES = [
     viewerNote: "Cyan = Moving Foreground",
     result: ["V5 / Wave Rotation", "v5-wave-rotation"],
   },
+  {
+    slug: "qual-21",
+    title: "Reef Fish · Natural Motion",
+    description:
+      "Estimated rigid object and camera trajectories · Ground-truth reference.",
+    groundTruth: "ground-truth",
+    result: ["V7 for VACE", "v7-full-vace"],
+  },
+  {
+    slug: "qual-22",
+    title: "Runner · Natural Motion",
+    description:
+      "Estimated rigid object and camera trajectories · Ground-truth reference.",
+    groundTruth: "ground-truth",
+    result: ["V7 for VACE", "v7-full-vace"],
+  },
+  {
+    slug: "qual-23",
+    title: "Push-Ups · Articulated Motion",
+    description:
+      "Estimated rigid object and camera trajectories · Ground-truth reference.",
+    groundTruth: "ground-truth",
+    result: ["V7 for VACE", "v7-full-vace"],
+  },
+  {
+    slug: "qual-24",
+    title: "Crawling Baby · Natural Motion",
+    description:
+      "Estimated rigid object and camera trajectories · Ground-truth reference.",
+    groundTruth: "ground-truth",
+    result: ["V7 for VACE", "v7-full-vace"],
+  },
+  {
+    slug: "qual-25",
+    title: "Two Runners · Multi-Object Motion",
+    description:
+      "Two rigid object trajectories and camera motion · Ground-truth reference.",
+    groundTruth: "ground-truth",
+    result: ["V7 for VACE", "v7-full-vace"],
+  },
+  {
+    slug: "qual-26",
+    title: "Motorcyclist · Natural Motion",
+    description:
+      "Estimated rigid object and camera trajectories · Ground-truth reference.",
+    groundTruth: "ground-truth",
+    result: ["V7 for VACE", "v7-full-vace"],
+  },
 ];
 
 function baselineFigure(slug, label, methodSlug) {
@@ -169,7 +217,19 @@ function baselineFigure(slug, label, methodSlug) {
 }
 
 function qualitativeCase(caseData, index) {
-  const methods = [...BASELINE_METHODS, ["Ours", caseData.result[1]]];
+  const methods = [
+    ...(caseData.groundTruth
+      ? [["Ground Truth", caseData.groundTruth]]
+      : []),
+    ...BASELINE_METHODS,
+    ["Ours", caseData.result[1]],
+  ];
+  const outputHeading = caseData.groundTruth
+    ? "Ground Truth and Method Outputs"
+    : "Baseline Outputs";
+  const outputRowClass = caseData.groundTruth
+    ? "qualitative-baseline-row has-ground-truth"
+    : "qualitative-baseline-row";
   return `
     <article
       id="qualitative-slide-${index}"
@@ -210,8 +270,8 @@ function qualitativeCase(caseData, index) {
         </figure>
       </div>
 
-      <h4 class="baseline-output-title">Baseline Outputs</h4>
-      <div class="qualitative-baseline-row">
+      <h4 class="baseline-output-title">${outputHeading}</h4>
+      <div class="${outputRowClass}">
         ${methods
           .map(([label, methodSlug]) =>
             baselineFigure(caseData.slug, label, methodSlug),
