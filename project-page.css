@@ -472,6 +472,42 @@ main.teaser-container {
   font-size: 15px;
 }
 
+.qualitative-group + .qualitative-group {
+  margin-top: 68px;
+  padding-top: 56px;
+  border-top: 1px solid var(--paper-line);
+}
+
+.qualitative-group-header {
+  margin: 0 54px 18px;
+  padding-top: 13px;
+  border-top: 2px solid var(--paper-ink);
+}
+
+.qualitative-group-header > span {
+  display: block;
+  margin-bottom: 5px;
+  color: var(--paper-muted);
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.qualitative-group-header h3 {
+  margin: 0 0 5px;
+  font-family: "Google Sans", "Noto Sans", sans-serif;
+  font-size: 25px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+
+.qualitative-group-header p {
+  margin: 0;
+  color: var(--paper-muted);
+  font-size: 14px;
+}
+
 .qualitative-carousel {
   position: relative;
   padding: 0 54px;
@@ -919,6 +955,16 @@ main.teaser-container {
 
   .qualitative-carousel {
     padding: 0;
+  }
+
+  .qualitative-group + .qualitative-group {
+    margin-top: 48px;
+    padding-top: 40px;
+  }
+
+  .qualitative-group-header {
+    margin-right: 0;
+    margin-left: 0;
   }
 
   .qualitative-progress {
