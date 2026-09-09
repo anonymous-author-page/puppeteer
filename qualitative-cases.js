@@ -345,6 +345,22 @@ const GROUND_TRUTH_CASES = [
     groundTruth: "ground-truth",
     result: ["V7 for VACE", "v7-full-vace"],
   },
+  {
+    slug: "qual-45",
+    title: "Ornate Hall Character · Game Motion",
+    description:
+      "Crouch-to-stand motion through an ornate indoor hall · Ground-truth reference.",
+    groundTruth: "ground-truth",
+    result: ["V7 for VACE", "v7-full-vace"],
+  },
+  {
+    slug: "qual-46",
+    title: "Rooftop Jump · Game Motion",
+    description:
+      "Rooftop jump and landing motion in an ancient city · Ground-truth reference.",
+    groundTruth: "ground-truth",
+    result: ["V7 for VACE", "v7-full-vace"],
+  },
 ];
 
 function baselineFigure(slug, label, methodSlug) {
