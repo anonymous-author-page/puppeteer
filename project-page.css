@@ -1021,3 +1021,94 @@ main.teaser-container {
     transition: none;
   }
 }
+
+/* ---------------------------------------------------------------------------
+   Bear + T-Rex teaser block (see bear-teaser.js)
+   Shares .teaser-section / .case / .media-grid with the hiker block; only the
+   pieces that block does not have are defined here.
+   --------------------------------------------------------------------------- */
+
+.bear-teaser-section {
+  order: 2;
+  padding-top: 8px;
+  border-top: 1px solid var(--paper-line);
+}
+
+/* The T-Rex is a long 2.7:1 animal, so matching the bear's visual weight costs
+   width. Let the bear block's icons shrink proportionally instead of spilling
+   past the rail on the three-module row. */
+.bear-teaser-section .feature-module {
+  min-width: 0;
+  flex: 0 1 auto;
+}
+
+.is-bear-module {
+  width: 72px;
+}
+
+.is-trex-module {
+  width: 120px;
+}
+
+.bear-teaser-section .is-camera-module {
+  width: 56px;
+}
+
+.bear-seed-switcher {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  margin-top: 7px;
+}
+
+.bear-seed-label {
+  margin-right: 2px;
+  color: var(--paper-muted);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.bear-seed-button {
+  padding: 2px 7px;
+  border: 1px solid var(--paper-line);
+  border-radius: 999px;
+  background: #fff;
+  color: #4a4d52;
+  cursor: pointer;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 11px;
+  line-height: 1.5;
+}
+
+.bear-seed-button:hover {
+  border-color: #9aa0a8;
+  color: var(--paper-ink);
+}
+
+.bear-seed-button.is-active {
+  border-color: #111;
+  background: #111;
+  color: #fff;
+}
+
+@media (max-width: 1100px) {
+  .bear-teaser-section .media-card.is-bear-generated .media-title {
+    display: flex;
+  }
+}
+
+/* Showcase rows (release edition): the same four-column teaser form, but the
+   cases carry no icon equation, so the rail is heading-only. */
+.showcase-section {
+  order: 2;
+  padding-top: 8px;
+  border-top: 1px solid var(--paper-line);
+}
+
+.showcase-section .feature-rail {
+  min-height: 0;
+}

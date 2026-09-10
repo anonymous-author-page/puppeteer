@@ -1,3 +1,25 @@
+// Qualitative cases for both editions of the page.
+//
+//   index.html  -> data-edition="release"   the published, trimmed page
+//   full.html   -> data-edition="full"      every case we have
+//
+// Every case below is in both editions. To drop one from the published page
+// while keeping it in the full one, add   editions: ["full"]   to its entry.
+// Cases without an `editions` field appear in both.
+
+const DEFAULT_EDITIONS = ["release", "full"];
+
+function currentEdition() {
+  return document.body.dataset.edition === "full" ? "full" : "release";
+}
+
+function forEdition(cases) {
+  const edition = currentEdition();
+  return cases.filter(
+    (item) => (item.editions || DEFAULT_EDITIONS).includes(edition),
+  );
+}
+
 const BASELINE_METHODS = [
   ["MotionControl", "motionctrl-animatediff"],
   ["Perception as Control", "perception-as-control"],
@@ -155,6 +177,7 @@ const NO_GROUND_TRUTH_CASES = [
 const GROUND_TRUTH_CASES = [
   {
     slug: "qual-21",
+    editions: ["full"],
     title: "Reef Fish · Natural Motion",
     description:
       "Estimated rigid object and camera trajectories · Ground-truth reference.",
@@ -163,6 +186,7 @@ const GROUND_TRUTH_CASES = [
   },
   {
     slug: "qual-22",
+    editions: ["full"],
     title: "Runner · Natural Motion",
     description:
       "Estimated rigid object and camera trajectories · Ground-truth reference.",
@@ -179,6 +203,7 @@ const GROUND_TRUTH_CASES = [
   },
   {
     slug: "qual-24",
+    editions: ["full"],
     title: "Crawling Baby · Natural Motion",
     description:
       "Estimated rigid object and camera trajectories · Ground-truth reference.",
@@ -187,6 +212,7 @@ const GROUND_TRUTH_CASES = [
   },
   {
     slug: "qual-25",
+    editions: ["full"],
     title: "Two Runners · Multi-Object Motion",
     description:
       "Two rigid object trajectories and camera motion · Ground-truth reference.",
@@ -211,6 +237,7 @@ const GROUND_TRUTH_CASES = [
   },
   {
     slug: "qual-28",
+    editions: ["full"],
     title: "Forest Turnaround · Natural Motion",
     description:
       "A runner turns and moves away through an autumn forest · Ground-truth reference.",
@@ -219,6 +246,7 @@ const GROUND_TRUTH_CASES = [
   },
   {
     slug: "qual-29",
+    editions: ["full"],
     title: "Forest Jogger · Natural Motion",
     description:
       "Forward jogging motion along a forest path · Ground-truth reference.",
@@ -243,6 +271,7 @@ const GROUND_TRUTH_CASES = [
   },
   {
     slug: "qual-32",
+    editions: ["full"],
     title: "Lakeside Runner · Natural Motion",
     description:
       "Forward running motion along a lakeside stone path · Ground-truth reference.",
@@ -251,6 +280,7 @@ const GROUND_TRUTH_CASES = [
   },
   {
     slug: "qual-33",
+    editions: ["full"],
     title: "Stadium Runner · Natural Motion",
     description:
       "Lateral running motion across an outdoor track · Ground-truth reference.",
@@ -259,6 +289,7 @@ const GROUND_TRUTH_CASES = [
   },
   {
     slug: "qual-34",
+    editions: ["full"],
     title: "Horse Rider · Natural Motion",
     description:
       "A mounted rider advances along a forest path · Ground-truth reference.",
@@ -267,6 +298,7 @@ const GROUND_TRUTH_CASES = [
   },
   {
     slug: "qual-35",
+    editions: ["full"],
     title: "Courtyard Runner · Natural Motion",
     description:
       "Forward running motion through a stone courtyard · Ground-truth reference.",
@@ -283,6 +315,7 @@ const GROUND_TRUTH_CASES = [
   },
   {
     slug: "qual-37",
+    editions: ["full"],
     title: "Skier · Natural Motion",
     description:
       "A skier descends through an alpine landscape · Ground-truth reference.",
@@ -291,6 +324,7 @@ const GROUND_TRUTH_CASES = [
   },
   {
     slug: "qual-38",
+    editions: ["full"],
     title: "Crouching Character · Game Motion",
     description:
       "Cautious crouching motion along a village path · Ground-truth reference.",
@@ -299,6 +333,7 @@ const GROUND_TRUTH_CASES = [
   },
   {
     slug: "qual-39",
+    editions: ["full"],
     title: "Ancient Courtyard · Game Motion",
     description:
       "Forward character motion through a populated courtyard · Ground-truth reference.",
@@ -307,6 +342,7 @@ const GROUND_TRUTH_CASES = [
   },
   {
     slug: "qual-40",
+    editions: ["full"],
     title: "Cloaked Character · Game Motion",
     description:
       "A cloaked character advances through an ornate hall · Ground-truth reference.",
@@ -315,6 +351,7 @@ const GROUND_TRUTH_CASES = [
   },
   {
     slug: "qual-41",
+    editions: ["full"],
     title: "Sports Car · Natural Motion",
     description:
       "A sports car follows a winding mountain road · Ground-truth reference.",
@@ -323,6 +360,7 @@ const GROUND_TRUTH_CASES = [
   },
   {
     slug: "qual-42",
+    editions: ["full"],
     title: "Armored Character · Game Motion",
     description:
       "Forward character motion across an open field · Ground-truth reference.",
@@ -331,6 +369,7 @@ const GROUND_TRUTH_CASES = [
   },
   {
     slug: "qual-43",
+    editions: ["full"],
     title: "Shielded Warrior · Game Motion",
     description:
       "A shielded warrior advances along a rural path · Ground-truth reference.",
@@ -339,6 +378,7 @@ const GROUND_TRUTH_CASES = [
   },
   {
     slug: "qual-44",
+    editions: ["full"],
     title: "Sword-Fighting Warrior · Game Motion",
     description:
       "Combat motion inside an ancient stone temple · Ground-truth reference.",
@@ -347,6 +387,7 @@ const GROUND_TRUTH_CASES = [
   },
   {
     slug: "qual-45",
+    editions: ["full"],
     title: "Ornate Hall Character · Game Motion",
     description:
       "Crouch-to-stand motion through an ornate indoor hall · Ground-truth reference.",
@@ -355,6 +396,7 @@ const GROUND_TRUTH_CASES = [
   },
   {
     slug: "qual-46",
+    editions: ["full"],
     title: "Rooftop Jump · Game Motion",
     description:
       "Rooftop jump and landing motion in an ancient city · Ground-truth reference.",
@@ -664,7 +706,7 @@ function createCarousel(root, cases, { id, label }) {
 
 createCarousel(
   document.querySelector("#qualitative-ground-truth-cases"),
-  GROUND_TRUTH_CASES,
+  forEdition(GROUND_TRUTH_CASES),
   {
     id: "ground-truth",
     label: "Qualitative results with ground truth",
@@ -673,7 +715,7 @@ createCarousel(
 
 createCarousel(
   document.querySelector("#qualitative-no-ground-truth-cases"),
-  NO_GROUND_TRUTH_CASES,
+  forEdition(NO_GROUND_TRUTH_CASES),
   {
     id: "no-ground-truth",
     label: "Qualitative results without ground truth",
