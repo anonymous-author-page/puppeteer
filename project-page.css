@@ -440,7 +440,7 @@ main.teaser-container {
 }
 
 .qualitative-section {
-  order: 5;
+  order: 7;
   padding: 54px 24px 72px;
   border-top: 1px solid var(--paper-line);
   background: var(--paper-soft);
@@ -851,7 +851,7 @@ main.teaser-container {
 }
 
 .site-footer {
-  order: 6;
+  order: 8;
   padding: 30px 24px 40px;
   border-top: 1px solid var(--paper-line);
   color: #888;
@@ -1104,11 +1104,30 @@ main.teaser-container {
 /* Showcase rows (release edition): the same four-column teaser form, but the
    cases carry no icon equation, so the rail is heading-only. */
 .showcase-section {
-  order: 2;
+  order: 6;
   padding-top: 8px;
   border-top: 1px solid var(--paper-line);
 }
 
 .showcase-section .feature-rail {
   min-height: 0;
+}
+
+/* Method figure. Sits between the abstract and the single-case showcase. */
+.pipeline-section {
+  order: 5;
+}
+
+.pipeline-figure {
+  width: min(100%, 1320px);
+  margin: 18px auto 0;
+}
+
+.pipeline-figure img {
+  display: block;
+  width: 100%;
+  height: auto;
+  border: 1px solid var(--paper-line);
+  border-radius: 6px;
+  background: #fff;
 }

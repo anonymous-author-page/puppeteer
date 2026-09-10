@@ -107,11 +107,8 @@ const BEAR_INPUTS = [
 // comparison. The full edition keeps them in the qualitative carousels
 // instead, where the comparisons live.
 const SHOWCASE_CASES = [
-  ["qual-21", "Reef Fish", "Natural Motion"],
-  ["qual-22", "Runner", "Natural Motion"],
   ["qual-24", "Crawling Baby", "Natural Motion"],
   ["qual-25", "Two Runners", "Multi-Object Motion"],
-  ["qual-28", "Forest Turnaround", "Natural Motion"],
   ["qual-29", "Forest Jogger", "Natural Motion"],
   ["qual-32", "Lakeside Runner", "Natural Motion"],
   ["qual-33", "Stadium Runner", "Natural Motion"],
