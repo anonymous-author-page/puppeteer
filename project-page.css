@@ -1368,9 +1368,12 @@ main.teaser-container {
 /* Two panels across is twice the width of a teaser column, so the whole
    window -- navigator, arrows and slides -- is capped and centred instead of
    running the full page width. One width, set here, drives all of it. */
+/* Same width as the Qualitative Comparison window below it, so the two
+   result sections line up. */
 .showcase-section .showcase-carousel-mount {
-  width: min(100%, 1060px);
+  width: min(100%, 1740px);
   margin: 4px auto 0;
+  padding: 0 24px;
 }
 
 .media-grid.is-paired {
@@ -1379,7 +1382,7 @@ main.teaser-container {
 }
 
 .showcase-section .case {
-  grid-template-columns: minmax(120px, 140px) minmax(0, 1fr);
+  grid-template-columns: minmax(150px, 170px) minmax(0, 1fr);
 }
 
 .showcase-section .feature-rail h2 {

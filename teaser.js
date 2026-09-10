@@ -107,16 +107,17 @@ const BEAR_INPUTS = [
 // comparison. The full edition keeps them in the qualitative carousels
 // instead, where the comparisons live.
 const SHOWCASE_CASES = [
+  // Game-engine cases lead, then the natural-footage ones.
+  ["qual-39", "Ancient Courtyard", "Game Motion"],
+  ["qual-40", "Cloaked Character", "Game Motion"],
+  ["qual-43", "Shielded Warrior", "Game Motion"],
+  ["qual-45", "Ornate Hall Character", "Game Motion"],
+  ["qual-46", "Rooftop Jump", "Game Motion"],
   ["qual-24", "Crawling Baby", "Natural Motion"],
   ["qual-32", "Lakeside Runner", "Natural Motion"],
   ["qual-35", "Courtyard Runner", "Natural Motion"],
   ["qual-37", "Skier", "Natural Motion"],
-  ["qual-39", "Ancient Courtyard", "Game Motion"],
-  ["qual-40", "Cloaked Character", "Game Motion"],
   ["qual-41", "Sports Car", "Natural Motion"],
-  ["qual-43", "Shielded Warrior", "Game Motion"],
-  ["qual-45", "Ornate Hall Character", "Game Motion"],
-  ["qual-46", "Rooftop Jump", "Game Motion"],
 ].map(([slug, title, subtitle]) => ({
   slug,
   title,
