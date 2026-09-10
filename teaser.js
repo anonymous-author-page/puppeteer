@@ -108,20 +108,13 @@ const BEAR_INPUTS = [
 // instead, where the comparisons live.
 const SHOWCASE_CASES = [
   ["qual-24", "Crawling Baby", "Natural Motion"],
-  ["qual-25", "Two Runners", "Multi-Object Motion"],
-  ["qual-29", "Forest Jogger", "Natural Motion"],
   ["qual-32", "Lakeside Runner", "Natural Motion"],
-  ["qual-33", "Stadium Runner", "Natural Motion"],
-  ["qual-34", "Horse Rider", "Natural Motion"],
   ["qual-35", "Courtyard Runner", "Natural Motion"],
   ["qual-37", "Skier", "Natural Motion"],
-  ["qual-38", "Crouching Character", "Game Motion"],
   ["qual-39", "Ancient Courtyard", "Game Motion"],
   ["qual-40", "Cloaked Character", "Game Motion"],
   ["qual-41", "Sports Car", "Natural Motion"],
-  ["qual-42", "Armored Character", "Game Motion"],
   ["qual-43", "Shielded Warrior", "Game Motion"],
-  ["qual-44", "Sword-Fighting Warrior", "Game Motion"],
   ["qual-45", "Ornate Hall Character", "Game Motion"],
   ["qual-46", "Rooftop Jump", "Game Motion"],
 ].map(([slug, title, subtitle]) => ({
@@ -133,6 +126,28 @@ const SHOWCASE_CASES = [
   result: "v7-full-vace",
   editions: ["release"],
 }));
+
+// The three capabilities the hero strip names. A row is labelled by what it
+// actually exercises, so the rail reads the same language as the hero.
+const CAPABILITIES = {
+  motion: ["Object Motion", "Rigid 3D trajectories"],
+  insertion: ["New Object Insertion", "Reference-guided composition"],
+  joint: ["Joint Camera and Object Control", "Jointly authored trajectories"],
+};
+
+// The badge illustrates the capability with this case's own subject, so the
+// bear rows show the bear and T-Rex rather than the hiker block's icons.
+function capabilityFor(caseData) {
+  const camera = caseData.modules.find((m) => m.startsWith("camera"));
+  const objects = caseData.modules.filter((m) => !m.startsWith("camera"));
+  if (camera) {
+    return [...CAPABILITIES.joint, MODULE_ICONS[camera][1]];
+  }
+  if (objects.length > 1) {
+    return [...CAPABILITIES.insertion, MODULE_ICONS[objects[1]][1]];
+  }
+  return [...CAPABILITIES.motion, MODULE_ICONS[objects[0]][1]];
+}
 
 const MODULE_ICONS = {
   hiker: ["is-hiker-module", "feature-hiker.png"],
@@ -195,6 +210,21 @@ function inputStack(caseData, defaults) {
   return `<div class="teaser-input-stack${single}">${cards}</div>`;
 }
 
+function inputCards(caseData) {
+  return caseData.inputs
+    .map(
+      ([title, file, alt]) => `
+      <figure class="media-card">
+        <figcaption class="media-title">${title}</figcaption>
+        <div class="media-frame">
+          <img src="./assets/${file}" alt="${alt}" loading="lazy">
+        </div>
+      </figure>
+    `,
+    )
+    .join("");
+}
+
 function seedSwitcher(caseData) {
   if (!caseData.seeds || caseData.seeds.length < 2) {
     return "";
@@ -219,11 +249,29 @@ function seedSwitcher(caseData) {
   `;
 }
 
+function capabilityBadge(caseData) {
+  const [name, detail, icon] = capabilityFor(caseData);
+  return `
+    <div class="capability">
+      <span class="capability-icon" aria-hidden="true">
+        <img src="./assets/${icon}" alt="">
+      </span>
+      <span class="capability-copy">
+        <strong>${name}</strong>
+        <small>${detail}</small>
+      </span>
+    </div>
+  `;
+}
+
 function teaserRow(caseData, index, defaults) {
   const heading = caseData.id ? ` id="${caseData.id}"` : "";
   const labelled = caseData.id ? ` aria-labelledby="${caseData.id}"` : "";
+  // Showcase rows have no icon equation; they stack their four panels two by
+  // two and label each one, since there is no shared column header above.
+  const pairs = caseData.modules.length === 0;
   return `
-    <article class="case feature-row" data-teaser-slug="${caseData.slug}"${labelled}>
+    <article class="case feature-row${pairs ? " is-paired" : ""}" data-teaser-slug="${caseData.slug}"${labelled}>
       <aside class="feature-rail">
         <span class="feature-row-index">${String(index + 1).padStart(2, "0")}</span>
         ${caseData.modules.length
@@ -232,10 +280,12 @@ function teaserRow(caseData, index, defaults) {
              </div>`
           : ""}
         <h2${heading}>${caseData.title}</h2>
-        <p>${caseData.subtitle}</p>
+        ${caseData.modules.length
+          ? capabilityBadge(caseData)
+          : `<p>${caseData.subtitle}</p>`}
       </aside>
-      <div class="media-grid">
-        ${inputStack(caseData, defaults)}
+      <div class="media-grid${pairs ? " is-paired" : ""}">
+        ${pairs ? inputCards(caseData) : inputStack(caseData, defaults)}
 
         <figure class="media-card">
           <figcaption class="media-title">Interactive Scene Puppet</figcaption>
@@ -285,23 +335,77 @@ function columnHeadings() {
   `;
 }
 
-function mountTeaser(root, cases, defaults) {
-  if (!root) {
-    return;
-  }
-  const edition = currentEdition();
-  const visible = cases.filter((item) => item.editions.includes(edition));
-  if (visible.length === 0) {
-    root.remove();
-    return;
-  }
-  root.innerHTML = `
-    <main class="teaser-container">
-      ${columnHeadings()}
-      ${visible.map((item, index) => teaserRow(item, index, defaults)).join("")}
-    </main>
+// A teaser page is a group of rows shown together; the carousel pages between
+// groups rather than between single cases.
+function teaserPageSlide(pages) {
+  return (page, index, carouselId, total) => `
+    <div
+      id="${carouselId}-slide-${index}"
+      class="teaser-page"
+      data-carousel-slide
+      role="group"
+      aria-roledescription="slide"
+      aria-label="${index + 1} of ${total}"
+    >
+      ${page.cases
+        .map((caseData, row) => teaserRow(caseData, row, page.inputs))
+        .join("")}
+    </div>
   `;
+}
 
+function pageProgress(page, index, carouselId, total) {
+  return `
+    <button
+      class="qualitative-progress-item"
+      type="button"
+      data-progress-index="${index}"
+      aria-controls="${carouselId}-slide-${index}"
+      aria-label="Show page ${index + 1} of ${total}: ${page.title}"
+    >
+      <span class="qualitative-progress-number">${String(index + 1).padStart(2, "0")}</span>
+      <span class="qualitative-progress-copy">
+        <strong>${page.title}</strong>
+        <small>${page.subtitle}</small>
+      </span>
+    </button>
+  `;
+}
+
+function caseProgress(caseData, index, carouselId, total) {
+  return `
+    <button
+      class="qualitative-progress-item"
+      type="button"
+      data-progress-index="${index}"
+      aria-controls="${carouselId}-slide-${index}"
+      aria-label="Show case ${index + 1} of ${total}: ${caseData.title}"
+    >
+      <span class="qualitative-progress-number">${String(index + 1).padStart(2, "0")}</span>
+      <span class="qualitative-progress-copy">
+        <strong>${caseData.title}</strong>
+        <small>${caseData.subtitle}</small>
+      </span>
+    </button>
+  `;
+}
+
+function caseSlide(defaults) {
+  return (caseData, index, carouselId, total) => `
+    <div
+      id="${carouselId}-slide-${index}"
+      class="teaser-page"
+      data-carousel-slide
+      role="group"
+      aria-roledescription="slide"
+      aria-label="${index + 1} of ${total}"
+    >
+      ${teaserRow(caseData, index, defaults)}
+    </div>
+  `;
+}
+
+function wireSeedSwitchers(root) {
   root.querySelectorAll("[data-teaser-slug]").forEach((row) => {
     const slug = row.dataset.teaserSlug;
     const video = row.querySelector("[data-teaser-generated]");
@@ -327,6 +431,72 @@ function mountTeaser(root, cases, defaults) {
   });
 }
 
-mountTeaser(document.querySelector("#hiker-teaser"), HIKER_CASES, HIKER_INPUTS);
-mountTeaser(document.querySelector("#bear-teaser"), BEAR_CASES, BEAR_INPUTS);
-mountTeaser(document.querySelector("#showcase-teaser"), SHOWCASE_CASES, []);
+function mountCarousel(root, entries, { id, label, kicker, title, blurb,
+                                        headings, navigator = false,
+                                        renderSlide, renderProgress }) {
+  if (!root || entries.length === 0) {
+    if (root) {
+      root.remove();
+    }
+    return;
+  }
+  root.innerHTML = `
+    <main class="teaser-container">
+      ${title
+        ? `<header class="teaser-heading">
+             ${kicker ? `<span class="teaser-kicker">${kicker}</span>` : ""}
+             <h2>${title}</h2>
+             ${blurb ? `<p>${blurb}</p>` : ""}
+           </header>`
+        : ""}
+      ${headings === false ? "" : columnHeadings()}
+      <div class="showcase-carousel-mount"></div>
+    </main>
+  `;
+  window.PuppeteerPage.createCarousel(
+    root.querySelector(".showcase-carousel-mount"),
+    entries,
+    { id, label, renderSlide, renderProgress, navigator },
+  );
+  window.PuppeteerPage.observeLazyMedia(root);
+  wireSeedSwitchers(root);
+}
+
+// Named for this file: qualitative-cases.js declares its own forEdition at
+// the same global scope, and two `const`s of one name is a hard parse error.
+const teaserEdition = currentEdition();
+const casesForEdition = (cases) =>
+  cases.filter((item) => item.editions.includes(teaserEdition));
+
+// One teaser carousel, one page per scene.
+const TEASER_PAGES = [
+  {
+    title: "Hiker + Camel",
+    subtitle: "Object motion, insertion and camera",
+    cases: casesForEdition(HIKER_CASES),
+    inputs: HIKER_INPUTS,
+  },
+  {
+    title: "Bear + T-Rex",
+    subtitle: "Object motion, insertion and camera",
+    cases: casesForEdition(BEAR_CASES),
+    inputs: BEAR_INPUTS,
+  },
+].filter((page) => page.cases.length > 0);
+
+mountCarousel(document.querySelector("#teaser"), TEASER_PAGES, {
+  id: "teaser",
+  label: "Teaser scenes",
+  renderSlide: teaserPageSlide(TEASER_PAGES),
+  renderProgress: pageProgress,
+});
+
+mountCarousel(document.querySelector("#showcase-teaser"), casesForEdition(SHOWCASE_CASES), {
+  id: "showcase",
+  label: "Single-case results",
+  title: "More Results",
+  headings: false,
+  navigator: true,
+  renderSlide: caseSlide([]),
+  renderProgress: caseProgress,
+});

@@ -19,9 +19,11 @@
     rel="stylesheet"
     href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
   >
-  <link rel="stylesheet" href="./project-page.css?v=20260910-ed1">
-  <script defer src="./teaser.js?v=20260910-ed1"></script>
-  <script defer src="./qualitative-cases.js?v=20260910-ed1"></script>
+  <link rel="stylesheet" href="./project-page.css?v=20260910-ed3">
+  <!-- qualitative-cases.js first: it exports the carousel and the lazy
+       media observers that teaser.js reuses. -->
+  <script defer src="./qualitative-cases.js?v=20260910-ed3"></script>
+  <script defer src="./teaser.js?v=20260910-ed3"></script>
 </head>
 <body data-edition="full">
   <header class="publication-hero">
@@ -109,14 +111,8 @@
 
   <section
     class="teaser-section"
-    id="hiker-teaser"
-    aria-label="Hiker and camel teaser rows"
-  ></section>
-
-  <section
-    id="bear-teaser"
-    class="teaser-section bear-teaser-section"
-    aria-label="Bear and T-Rex teaser rows"
+    id="teaser"
+    aria-label="Teaser scenes"
   ></section>
 
   <section class="paper-section pipeline-section">
@@ -141,47 +137,14 @@
   <section class="qualitative-section">
     <div class="qualitative-container">
       <header class="qualitative-header">
-        <h2>Qualitative Results</h2>
+        <h2>Qualitative Comparison</h2>
         <p>
-          Browse ground-truth comparisons and authored controls in two
-          independent case windows.
+          Every case beside the same set of baselines.
         </p>
       </header>
 
-      <section
-        class="qualitative-group"
-        aria-labelledby="ground-truth-results-title"
-      >
-        <header class="qualitative-group-header">
-          <span>Reference Comparisons</span>
-          <h3 id="ground-truth-results-title">With Ground Truth</h3>
-          <p>
-            Source sequences with a ground-truth target shown beside every
-            method.
-          </p>
-        </header>
-        <div
-          id="qualitative-ground-truth-cases"
-          class="qualitative-cases"
-        ></div>
-      </section>
+      <div id="qualitative-cases" class="qualitative-cases"></div>
 
-      <section
-        class="qualitative-group"
-        aria-labelledby="no-ground-truth-results-title"
-      >
-        <header class="qualitative-group-header">
-          <span>Authored Controls</span>
-          <h3 id="no-ground-truth-results-title">Without Ground Truth</h3>
-          <p>
-            Object and camera controls evaluated without a captured target.
-          </p>
-        </header>
-        <div
-          id="qualitative-no-ground-truth-cases"
-          class="qualitative-cases"
-        ></div>
-      </section>
       <noscript>
         <p class="javascript-note">
           JavaScript is required to load the qualitative comparisons.

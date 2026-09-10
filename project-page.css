@@ -440,7 +440,7 @@ main.teaser-container {
 }
 
 .qualitative-section {
-  order: 7;
+  order: 6;
   padding: 54px 24px 72px;
   border-top: 1px solid var(--paper-line);
   background: var(--paper-soft);
@@ -470,42 +470,6 @@ main.teaser-container {
   margin: 0;
   color: var(--paper-muted);
   font-size: 15px;
-}
-
-.qualitative-group + .qualitative-group {
-  margin-top: 68px;
-  padding-top: 56px;
-  border-top: 1px solid var(--paper-line);
-}
-
-.qualitative-group-header {
-  margin: 0 54px 18px;
-  padding-top: 13px;
-  border-top: 2px solid var(--paper-ink);
-}
-
-.qualitative-group-header > span {
-  display: block;
-  margin-bottom: 5px;
-  color: var(--paper-muted);
-  font-size: 10px;
-  font-weight: 700;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-}
-
-.qualitative-group-header h3 {
-  margin: 0 0 5px;
-  font-family: "Google Sans", "Noto Sans", sans-serif;
-  font-size: 25px;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-}
-
-.qualitative-group-header p {
-  margin: 0;
-  color: var(--paper-muted);
-  font-size: 14px;
 }
 
 .qualitative-carousel {
@@ -835,10 +799,6 @@ main.teaser-container {
   overscroll-behavior-x: contain;
 }
 
-.qualitative-baseline-row.has-ground-truth {
-  grid-template-columns: repeat(6, minmax(220px, 1fr));
-}
-
 .qualitative-baseline-row .media-title {
   min-height: 43px;
   font-size: 16px;
@@ -957,17 +917,7 @@ main.teaser-container {
     padding: 0;
   }
 
-  .qualitative-group + .qualitative-group {
-    margin-top: 48px;
-    padding-top: 40px;
-  }
-
-  .qualitative-group-header {
-    margin-right: 0;
-    margin-left: 0;
-  }
-
-  .qualitative-progress {
+      .qualitative-progress {
     margin-bottom: 13px;
     padding: 14px 12px 8px;
   }
@@ -1104,7 +1054,7 @@ main.teaser-container {
 /* Showcase rows (release edition): the same four-column teaser form, but the
    cases carry no icon equation, so the rail is heading-only. */
 .showcase-section {
-  order: 6;
+  order: 7;
   padding-top: 8px;
   border-top: 1px solid var(--paper-line);
 }
@@ -1130,4 +1080,316 @@ main.teaser-container {
   border: 1px solid var(--paper-line);
   border-radius: 6px;
   background: #fff;
+}
+
+/* The showcase reuses the qualitative carousel, so its slides need the same
+   full-width flex basis the qualitative slides get. */
+.qualitative-carousel .teaser-page {
+  flex: 0 0 100%;
+  min-width: 0;
+  /* No side padding: .qualitative-carousel already insets by 54px to clear the
+     overlaid prev/next buttons, and doubling it narrows the row until the
+     column headings no longer line up with the columns. */
+  padding: 10px 0 16px;
+}
+
+.teaser-section .showcase-carousel-mount {
+  margin-top: 4px;
+}
+
+/* Match the slide's side padding so the column headings line up with the
+   columns underneath them. */
+.teaser-section .teaser-column-headings {
+  padding-right: 54px;
+  padding-left: 54px;
+}
+
+@media (max-width: 760px) {
+  .teaser-section .teaser-column-headings {
+    padding-right: 0;
+    padding-left: 0;
+  }
+}
+
+.teaser-section .qualitative-carousel .case {
+  padding-top: 0;
+  border-top: 0;
+}
+
+@media (max-width: 760px) {
+  .qualitative-carousel .teaser-page {
+    padding: 10px 0 16px;
+  }
+}
+
+/* ===========================================================================
+   Page polish
+   Section headings, vertical rhythm and softer carousel chrome. The palette
+   stays monochrome; only weight, spacing and depth change.
+   =========================================================================== */
+
+:root {
+  --paper-hairline: #e8eaed;
+  --paper-shadow: 0 1px 2px rgba(32, 33, 36, 0.06),
+    0 4px 16px rgba(32, 33, 36, 0.05);
+}
+
+/* --- section headings ---------------------------------------------------- */
+
+.teaser-heading {
+  width: min(100%, 1740px);
+  margin: 0 auto 22px;
+  padding: 0 54px;
+}
+
+.teaser-kicker {
+  display: block;
+  margin-bottom: 7px;
+  color: var(--paper-muted);
+  font-family: "Google Sans", "Noto Sans", sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+
+.teaser-heading h2 {
+  margin: 0;
+  color: var(--paper-ink);
+  font-family: "Google Sans", "Noto Sans", sans-serif;
+  font-size: 27px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.teaser-heading p {
+  max-width: 68ch;
+  margin: 9px 0 0;
+  color: var(--paper-muted);
+  font-size: 15px;
+  line-height: 1.55;
+}
+
+/* --- vertical rhythm ----------------------------------------------------- */
+
+.teaser-section {
+  padding: 46px 4px 50px;
+  border-top: 1px solid var(--paper-hairline);
+}
+
+.teaser-section:first-of-type {
+  border-top: 0;
+}
+
+.bear-teaser-section,
+.showcase-section {
+  padding-top: 46px;
+  border-top: 1px solid var(--paper-hairline);
+}
+
+.pipeline-section {
+  padding-bottom: 8px;
+}
+
+.qualitative-section {
+  border-top: 1px solid var(--paper-hairline);
+}
+
+/* --- carousel chrome ----------------------------------------------------- */
+
+.qualitative-progress {
+  border-color: var(--paper-hairline);
+  border-radius: 12px;
+  background: var(--paper-soft);
+  box-shadow: none;
+}
+
+.qualitative-progress-item {
+  border-color: var(--paper-hairline);
+  border-radius: 10px;
+  background: #fff;
+  transition: border-color 140ms ease, box-shadow 140ms ease;
+}
+
+.qualitative-progress-item:hover {
+  border-color: #bdc1c6;
+}
+
+.qualitative-progress-item.is-active {
+  box-shadow: var(--paper-shadow);
+}
+
+.qualitative-carousel-button {
+  border-color: var(--paper-hairline);
+  box-shadow: var(--paper-shadow);
+  transition: transform 140ms ease, box-shadow 140ms ease;
+}
+
+.qualitative-carousel-button:not(:disabled):hover {
+  transform: translateY(-50%) scale(1.06);
+}
+
+/* --- media cards --------------------------------------------------------- */
+
+.media-frame {
+  border-color: var(--paper-hairline);
+  border-radius: 6px;
+  box-shadow: var(--paper-shadow);
+}
+
+.teaser-column-headings {
+  border-bottom-color: var(--paper-hairline);
+}
+
+.case {
+  border-top-color: var(--paper-hairline);
+}
+
+/* --- focus visibility ---------------------------------------------------- */
+
+.qualitative-carousel-button:focus-visible,
+.qualitative-progress-item:focus-visible,
+.bear-seed-button:focus-visible,
+.qualitative-carousel:focus-visible {
+  outline: 2px solid var(--paper-ink);
+  outline-offset: 2px;
+}
+
+@media (max-width: 760px) {
+  .teaser-heading {
+    padding: 0 2px;
+  }
+
+  .teaser-heading h2 {
+    font-size: 22px;
+  }
+}
+
+/* Rows stacked inside one carousel page. */
+.teaser-page .case + .case {
+  border-top: 1px solid var(--paper-hairline);
+  padding-top: 12px;
+}
+
+/* Per-case capability badge in the rail: same wording and icons as the hero
+   strip, so a row states which of the three controls it exercises. */
+.capability {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-top: 8px;
+}
+
+.capability-icon {
+  display: grid;
+  width: 30px;
+  height: 30px;
+  flex: none;
+  place-items: center;
+}
+
+.capability-icon img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+}
+
+.capability-copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+}
+
+.capability-copy strong {
+  color: var(--paper-ink);
+  font-family: "Google Sans", "Noto Sans", sans-serif;
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1.25;
+  white-space: normal;
+}
+
+.capability-copy small {
+  margin-top: 1px;
+  color: var(--paper-muted);
+  font-size: 11.5px;
+  line-height: 1.3;
+  white-space: normal;
+}
+
+/* The results section stands apart from the teaser above it: its own ground,
+   full-width rules, and a heading that matches the qualitative section. */
+.showcase-section {
+  padding: 52px 4px 56px;
+  border-top: 1px solid var(--paper-line);
+  border-bottom: 1px solid var(--paper-line);
+  background: var(--paper-soft);
+}
+
+.showcase-section .teaser-heading {
+  margin-bottom: 26px;
+  text-align: center;
+}
+
+.showcase-section .teaser-heading h2 {
+  font-size: 30px;
+}
+
+.showcase-section .qualitative-progress {
+  background: #fff;
+}
+
+/* Rows here have no icon equation, so the rail is heading plus one line. */
+.showcase-section .feature-rail {
+  min-height: 0;
+}
+
+.showcase-section .feature-row-index {
+  top: 2px;
+}
+
+/* --- results section: centred heading, panels two by two ------------------ */
+
+.showcase-section .teaser-heading {
+  width: min(100%, 900px);
+  margin: 0 auto 30px;
+  padding: 0 16px;
+  text-align: center;
+}
+
+.showcase-section .teaser-heading h2 {
+  font-family: "Google Sans", "Noto Sans", sans-serif;
+  font-size: 27px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+/* Two panels across is twice the width of a teaser column, so the block is
+   capped and centred rather than filling the full page width. */
+.media-grid.is-paired {
+  width: min(100%, 1020px);
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 10px;
+}
+
+.showcase-section .case {
+  grid-template-columns: minmax(150px, 168px) minmax(0, 1fr);
+  justify-content: center;
+}
+
+.showcase-section .feature-rail h2 {
+  font-size: 15px;
+}
+
+/* Each panel labels itself, because a two-by-two block has no column header. */
+.feature-row.is-paired .media-title {
+  display: flex;
+  min-height: 0;
+  margin: 8px 0 0;
+  font-size: 14px;
+}
+
+.feature-row.is-paired .media-card {
+  flex-direction: column-reverse;
 }

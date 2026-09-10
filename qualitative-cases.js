@@ -51,6 +51,7 @@ const NO_GROUND_TRUTH_CASES = [
   },
   {
     slug: "qual-03",
+    editions: ["full"],
     title: "Boat · Camera Yaw −180°",
     description: "Static object · Camera yaw −180°.",
     viewerNote: "Blue = Moving Camera",
@@ -101,6 +102,7 @@ const NO_GROUND_TRUTH_CASES = [
   },
   {
     slug: "qual-10",
+    editions: ["full"],
     title: "Cows · Object Translation + Camera Follow",
     description:
       "Object moves right by 3 body widths · Parallel camera follow.",
@@ -132,6 +134,7 @@ const NO_GROUND_TRUTH_CASES = [
   },
   {
     slug: "qual-15",
+    editions: ["full"],
     title: "Flamingo · Object Rotation",
     description: "Clockwise 180° object rotation · Static camera.",
     viewerNote: "Cyan = Moving Foreground",
@@ -153,6 +156,7 @@ const NO_GROUND_TRUTH_CASES = [
   },
   {
     slug: "qual-18",
+    editions: ["full"],
     title: "Libby · Camera Yaw +120°",
     description: "Static object · Camera yaw +120°.",
     viewerNote: "Blue = Moving Camera",
@@ -180,8 +184,7 @@ const GROUND_TRUTH_CASES = [
     editions: ["full"],
     title: "Reef Fish · Natural Motion",
     description:
-      "Estimated rigid object and camera trajectories · Ground-truth reference.",
-    groundTruth: "ground-truth",
+      "Estimated rigid object and camera trajectories.",
     result: ["V7 for VACE", "v7-full-vace"],
   },
   {
@@ -189,16 +192,14 @@ const GROUND_TRUTH_CASES = [
     editions: ["full"],
     title: "Runner · Natural Motion",
     description:
-      "Estimated rigid object and camera trajectories · Ground-truth reference.",
-    groundTruth: "ground-truth",
+      "Estimated rigid object and camera trajectories.",
     result: ["V7 for VACE", "v7-full-vace"],
   },
   {
     slug: "qual-23",
     title: "Push-Ups · Articulated Motion",
     description:
-      "Estimated rigid object and camera trajectories · Ground-truth reference.",
-    groundTruth: "ground-truth",
+      "Estimated rigid object and camera trajectories.",
     result: ["V7 for VACE", "v7-full-vace"],
   },
   {
@@ -206,8 +207,7 @@ const GROUND_TRUTH_CASES = [
     editions: ["full"],
     title: "Crawling Baby · Natural Motion",
     description:
-      "Estimated rigid object and camera trajectories · Ground-truth reference.",
-    groundTruth: "ground-truth",
+      "Estimated rigid object and camera trajectories.",
     result: ["V7 for VACE", "v7-full-vace"],
   },
   {
@@ -215,24 +215,22 @@ const GROUND_TRUTH_CASES = [
     editions: ["full"],
     title: "Two Runners · Multi-Object Motion",
     description:
-      "Two rigid object trajectories and camera motion · Ground-truth reference.",
-    groundTruth: "ground-truth",
+      "Two rigid object trajectories and camera motion.",
     result: ["V7 for VACE", "v7-full-vace"],
   },
   {
     slug: "qual-26",
+    editions: ["full"],
     title: "Motorcyclist · Natural Motion",
     description:
-      "Estimated rigid object and camera trajectories · Ground-truth reference.",
-    groundTruth: "ground-truth",
+      "Estimated rigid object and camera trajectories.",
     result: ["V7 for VACE", "v7-full-vace"],
   },
   {
     slug: "qual-27",
     title: "Bearded Runner · Natural Motion",
     description:
-      "Forward running motion through an outdoor training facility · Ground-truth reference.",
-    groundTruth: "ground-truth",
+      "Forward running motion through an outdoor training facility.",
     result: ["V7 for VACE", "v7-full-vace"],
   },
   {
@@ -240,8 +238,7 @@ const GROUND_TRUTH_CASES = [
     editions: ["full"],
     title: "Forest Turnaround · Natural Motion",
     description:
-      "A runner turns and moves away through an autumn forest · Ground-truth reference.",
-    groundTruth: "ground-truth",
+      "A runner turns and moves away through an autumn forest.",
     result: ["V7 for VACE", "v7-full-vace"],
   },
   {
@@ -249,24 +246,22 @@ const GROUND_TRUTH_CASES = [
     editions: ["full"],
     title: "Forest Jogger · Natural Motion",
     description:
-      "Forward jogging motion along a forest path · Ground-truth reference.",
-    groundTruth: "ground-truth",
+      "Forward jogging motion along a forest path.",
     result: ["V7 for VACE", "v7-full-vace"],
   },
   {
     slug: "qual-30",
+    editions: ["full"],
     title: "Shark · Natural Motion",
     description:
-      "A shark swims and turns through an underwater scene · Ground-truth reference.",
-    groundTruth: "ground-truth",
+      "A shark swims and turns through an underwater scene.",
     result: ["V7 for VACE", "v7-full-vace"],
   },
   {
     slug: "qual-31",
     title: "Bridge Runner · Natural Motion",
     description:
-      "A runner approaches the camera along a bridge · Ground-truth reference.",
-    groundTruth: "ground-truth",
+      "A runner approaches the camera along a bridge.",
     result: ["V7 for VACE", "v7-full-vace"],
   },
   {
@@ -274,8 +269,7 @@ const GROUND_TRUTH_CASES = [
     editions: ["full"],
     title: "Lakeside Runner · Natural Motion",
     description:
-      "Forward running motion along a lakeside stone path · Ground-truth reference.",
-    groundTruth: "ground-truth",
+      "Forward running motion along a lakeside stone path.",
     result: ["V7 for VACE", "v7-full-vace"],
   },
   {
@@ -283,8 +277,7 @@ const GROUND_TRUTH_CASES = [
     editions: ["full"],
     title: "Stadium Runner · Natural Motion",
     description:
-      "Lateral running motion across an outdoor track · Ground-truth reference.",
-    groundTruth: "ground-truth",
+      "Lateral running motion across an outdoor track.",
     result: ["V7 for VACE", "v7-full-vace"],
   },
   {
@@ -292,8 +285,7 @@ const GROUND_TRUTH_CASES = [
     editions: ["full"],
     title: "Horse Rider · Natural Motion",
     description:
-      "A mounted rider advances along a forest path · Ground-truth reference.",
-    groundTruth: "ground-truth",
+      "A mounted rider advances along a forest path.",
     result: ["V7 for VACE", "v7-full-vace"],
   },
   {
@@ -301,16 +293,15 @@ const GROUND_TRUTH_CASES = [
     editions: ["full"],
     title: "Courtyard Runner · Natural Motion",
     description:
-      "Forward running motion through a stone courtyard · Ground-truth reference.",
-    groundTruth: "ground-truth",
+      "Forward running motion through a stone courtyard.",
     result: ["V7 for VACE", "v7-full-vace"],
   },
   {
     slug: "qual-36",
+    editions: ["full"],
     title: "Twilight Forest Runner · Natural Motion",
     description:
-      "Forward running motion across dim forest terrain · Ground-truth reference.",
-    groundTruth: "ground-truth",
+      "Forward running motion across dim forest terrain.",
     result: ["V7 for VACE", "v7-full-vace"],
   },
   {
@@ -318,8 +309,7 @@ const GROUND_TRUTH_CASES = [
     editions: ["full"],
     title: "Skier · Natural Motion",
     description:
-      "A skier descends through an alpine landscape · Ground-truth reference.",
-    groundTruth: "ground-truth",
+      "A skier descends through an alpine landscape.",
     result: ["V7 for VACE", "v7-full-vace"],
   },
   {
@@ -327,8 +317,7 @@ const GROUND_TRUTH_CASES = [
     editions: ["full"],
     title: "Crouching Character · Game Motion",
     description:
-      "Cautious crouching motion along a village path · Ground-truth reference.",
-    groundTruth: "ground-truth",
+      "Cautious crouching motion along a village path.",
     result: ["V7 for VACE", "v7-full-vace"],
   },
   {
@@ -336,8 +325,7 @@ const GROUND_TRUTH_CASES = [
     editions: ["full"],
     title: "Ancient Courtyard · Game Motion",
     description:
-      "Forward character motion through a populated courtyard · Ground-truth reference.",
-    groundTruth: "ground-truth",
+      "Forward character motion through a populated courtyard.",
     result: ["V7 for VACE", "v7-full-vace"],
   },
   {
@@ -345,8 +333,7 @@ const GROUND_TRUTH_CASES = [
     editions: ["full"],
     title: "Cloaked Character · Game Motion",
     description:
-      "A cloaked character advances through an ornate hall · Ground-truth reference.",
-    groundTruth: "ground-truth",
+      "A cloaked character advances through an ornate hall.",
     result: ["V7 for VACE", "v7-full-vace"],
   },
   {
@@ -354,8 +341,7 @@ const GROUND_TRUTH_CASES = [
     editions: ["full"],
     title: "Sports Car · Natural Motion",
     description:
-      "A sports car follows a winding mountain road · Ground-truth reference.",
-    groundTruth: "ground-truth",
+      "A sports car follows a winding mountain road.",
     result: ["V7 for VACE", "v7-full-vace"],
   },
   {
@@ -363,8 +349,7 @@ const GROUND_TRUTH_CASES = [
     editions: ["full"],
     title: "Armored Character · Game Motion",
     description:
-      "Forward character motion across an open field · Ground-truth reference.",
-    groundTruth: "ground-truth",
+      "Forward character motion across an open field.",
     result: ["V7 for VACE", "v7-full-vace"],
   },
   {
@@ -372,8 +357,7 @@ const GROUND_TRUTH_CASES = [
     editions: ["full"],
     title: "Shielded Warrior · Game Motion",
     description:
-      "A shielded warrior advances along a rural path · Ground-truth reference.",
-    groundTruth: "ground-truth",
+      "A shielded warrior advances along a rural path.",
     result: ["V7 for VACE", "v7-full-vace"],
   },
   {
@@ -381,8 +365,7 @@ const GROUND_TRUTH_CASES = [
     editions: ["full"],
     title: "Sword-Fighting Warrior · Game Motion",
     description:
-      "Combat motion inside an ancient stone temple · Ground-truth reference.",
-    groundTruth: "ground-truth",
+      "Combat motion inside an ancient stone temple.",
     result: ["V7 for VACE", "v7-full-vace"],
   },
   {
@@ -390,8 +373,7 @@ const GROUND_TRUTH_CASES = [
     editions: ["full"],
     title: "Ornate Hall Character · Game Motion",
     description:
-      "Crouch-to-stand motion through an ornate indoor hall · Ground-truth reference.",
-    groundTruth: "ground-truth",
+      "Crouch-to-stand motion through an ornate indoor hall.",
     result: ["V7 for VACE", "v7-full-vace"],
   },
   {
@@ -399,8 +381,7 @@ const GROUND_TRUTH_CASES = [
     editions: ["full"],
     title: "Rooftop Jump · Game Motion",
     description:
-      "Rooftop jump and landing motion in an ancient city · Ground-truth reference.",
-    groundTruth: "ground-truth",
+      "Rooftop jump and landing motion in an ancient city.",
     result: ["V7 for VACE", "v7-full-vace"],
   },
 ];
@@ -422,19 +403,11 @@ function baselineFigure(slug, label, methodSlug) {
 }
 
 function qualitativeCase(caseData, index, carouselId, totalCases) {
-  const methods = [
-    ...(caseData.groundTruth
-      ? [["Ground Truth", caseData.groundTruth]]
-      : []),
-    ...BASELINE_METHODS,
-    ["Ours", caseData.result[1]],
-  ];
-  const outputHeading = caseData.groundTruth
-    ? "Ground Truth and Method Outputs"
-    : "Baseline Outputs";
-  const outputRowClass = caseData.groundTruth
-    ? "qualitative-baseline-row has-ground-truth"
-    : "qualitative-baseline-row";
+  // Ground truth is deliberately not shown: every case is presented against
+  // the same baselines so the rows stay comparable.
+  const methods = [...BASELINE_METHODS, ["Ours", caseData.result[1]]];
+  const outputHeading = "Baseline Outputs";
+  const outputRowClass = "qualitative-baseline-row";
   return `
     <article
       id="${carouselId}-slide-${index}"
@@ -507,7 +480,26 @@ function progressItem(caseData, index, carouselId, totalCases) {
   `;
 }
 
-function createCarousel(root, cases, { id, label }) {
+function createCarousel(
+  root,
+  cases,
+  {
+    id,
+    label,
+    renderSlide = qualitativeCase,
+    renderProgress = progressItem,
+    // The teaser carousels want arrows only; the qualitative one keeps the
+    // navigator because 26 cases need a way to jump.
+    navigator: showNavigator = true,
+  },
+) {
+  if (!root) {
+    return;
+  }
+  if (cases.length === 0) {
+    root.remove();
+    return;
+  }
   const totalCases = cases.length;
   root.innerHTML = `
     <div
@@ -517,6 +509,7 @@ function createCarousel(root, cases, { id, label }) {
       aria-label="${label}"
       tabindex="0"
     >
+      ${showNavigator ? `
       <div class="qualitative-progress">
         <div class="qualitative-progress-heading">
           <div>
@@ -538,18 +531,18 @@ function createCarousel(root, cases, { id, label }) {
         >
           ${cases
             .map((caseData, index) =>
-              progressItem(caseData, index, id, totalCases),
+              renderProgress(caseData, index, id, totalCases),
             )
             .join("")}
         </nav>
-      </div>
+      </div>` : ""}
 
       <div class="qualitative-carousel-stage">
         <div class="qualitative-carousel-viewport">
           <div class="qualitative-carousel-track">
             ${cases
               .map((caseData, index) =>
-                qualitativeCase(caseData, index, id, totalCases),
+                renderSlide(caseData, index, id, totalCases),
               )
               .join("")}
           </div>
@@ -596,6 +589,7 @@ function createCarousel(root, cases, { id, label }) {
   const progressFill = carousel.querySelector(
     ".qualitative-progress-bar > span",
   );
+  const hasNavigator = Boolean(progressList);
   let currentSlide = 0;
 
   function showSlide(index) {
@@ -612,6 +606,7 @@ function createCarousel(root, cases, { id, label }) {
     });
     previousButton.disabled = currentSlide === 0;
     nextButton.disabled = currentSlide === carouselSlides.length - 1;
+    if (hasNavigator) {
     progressButtons.forEach((button, buttonIndex) => {
       const isActive = buttonIndex === currentSlide;
       button.classList.toggle("is-active", isActive);
@@ -641,6 +636,7 @@ function createCarousel(root, cases, { id, label }) {
       ),
       behavior: carousel.dataset.ready ? "smooth" : "auto",
     });
+    }
     carouselStatus.textContent =
       `${currentSlide + 1} / ${carouselSlides.length} · ` +
       cases[currentSlide].title;
@@ -704,21 +700,14 @@ function createCarousel(root, cases, { id, label }) {
   showSlide(0);
 }
 
+// One window over every case; the split into "with"/"without ground truth"
+// is gone now that ground truth is not displayed.
 createCarousel(
-  document.querySelector("#qualitative-ground-truth-cases"),
-  forEdition(GROUND_TRUTH_CASES),
+  document.querySelector("#qualitative-cases"),
+  forEdition([...NO_GROUND_TRUTH_CASES, ...GROUND_TRUTH_CASES]),
   {
-    id: "ground-truth",
-    label: "Qualitative results with ground truth",
-  },
-);
-
-createCarousel(
-  document.querySelector("#qualitative-no-ground-truth-cases"),
-  forEdition(NO_GROUND_TRUTH_CASES),
-  {
-    id: "no-ground-truth",
-    label: "Qualitative results without ground truth",
+    id: "qualitative",
+    label: "Qualitative comparison",
   },
 );
 
@@ -746,9 +735,7 @@ const videoObserver = new IntersectionObserver(
   { rootMargin: "400px 0px" },
 );
 
-document.querySelectorAll("[data-lazy-video]").forEach((video) => {
-  videoObserver.observe(video);
-});
+
 
 const iframeObserver = new IntersectionObserver(
   (entries) => {
@@ -768,6 +755,17 @@ const iframeObserver = new IntersectionObserver(
   { rootMargin: "500px 0px" },
 );
 
-document.querySelectorAll("[data-lazy-iframe]").forEach((iframe) => {
-  iframeObserver.observe(iframe);
-});
+// teaser.js mounts its blocks after this file runs, so it re-uses this to
+// register whatever it just built.
+function observeLazyMedia(root = document) {
+  root.querySelectorAll("[data-lazy-video]").forEach((video) => {
+    videoObserver.observe(video);
+  });
+  root.querySelectorAll("[data-lazy-iframe]").forEach((iframe) => {
+    iframeObserver.observe(iframe);
+  });
+}
+
+observeLazyMedia();
+
+window.PuppeteerPage = { createCarousel, observeLazyMedia };
