@@ -1365,17 +1365,21 @@ main.teaser-container {
   letter-spacing: -0.02em;
 }
 
-/* Two panels across is twice the width of a teaser column, so the block is
-   capped and centred rather than filling the full page width. */
+/* Two panels across is twice the width of a teaser column, so the whole
+   window -- navigator, arrows and slides -- is capped and centred instead of
+   running the full page width. One width, set here, drives all of it. */
+.showcase-section .showcase-carousel-mount {
+  width: min(100%, 1060px);
+  margin: 4px auto 0;
+}
+
 .media-grid.is-paired {
-  width: min(100%, 1020px);
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: 12px 10px;
 }
 
 .showcase-section .case {
-  grid-template-columns: minmax(150px, 168px) minmax(0, 1fr);
-  justify-content: center;
+  grid-template-columns: minmax(120px, 140px) minmax(0, 1fr);
 }
 
 .showcase-section .feature-rail h2 {
