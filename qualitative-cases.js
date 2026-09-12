@@ -435,12 +435,12 @@ function qualitativeCase(caseData, index, carouselId, totalCases) {
         </figure>
 
         <figure class="media-card">
-          <figcaption class="media-title">Interactive 4D Control</figcaption>
+          <figcaption class="media-title">Point Cloud</figcaption>
           <div class="media-frame">
             <iframe
               data-lazy-iframe
               data-src="./viser-client/?playbackPath=../assets/${caseData.slug}-scene.viser"
-              title="Interactive 4D control for ${caseData.title}"
+              title="Interactive point cloud for ${caseData.title}"
               loading="lazy"
               allow="fullscreen"
             ></iframe>
@@ -711,12 +711,118 @@ createCarousel(
   },
 );
 
+// A control and the result it drove only read as a pair when they show the same
+// frame. Inside a group marked data-video-sync, hold every clip at its first
+// frame until they are all buffered, then start them in one go. Nudging
+// currentTime instead would need range requests, which not every static host
+// serves, and a refused seek drops the clip back to the start.
+function startSyncGroup(group) {
+  const videos = Array.from(group.querySelectorAll("video"));
+  if (!videos.length || videos.some((video) => video.readyState < 3)) {
+    return;
+  }
+  videos.forEach((video) => {
+    video.play().catch(() => {});
+  });
+}
+
+const SYNC_TOLERANCE = 0.04;
+const SYNC_SEEK_THRESHOLD = 0.5;
+const SYNC_MAX_RATE_TRIM = 0.08;
+
+function bufferedCovers(video, time) {
+  for (let index = 0; index < video.buffered.length; index += 1) {
+    if (time >= video.buffered.start(index) && time <= video.buffered.end(index)) {
+      return true;
+    }
+  }
+  return false;
+}
+
+// Clips that started together can still creep apart when a machine decodes some
+// of them slower than real time. Small gaps close by trimming playback rate,
+// which never stalls; a large gap is worth a seek, but only into data the clip
+// already holds, so a host that refuses range requests is left alone.
+function correctSyncDrift() {
+  document.querySelectorAll("[data-video-sync]").forEach((group) => {
+    const playing = Array.from(group.querySelectorAll("video")).filter(
+      (video) => !video.paused && video.readyState >= 3,
+    );
+    if (playing.length < 2) {
+      return;
+    }
+    const [leader, ...followers] = playing;
+    const period = leader.duration;
+    if (!Number.isFinite(period)) {
+      return;
+    }
+    followers.forEach((video) => {
+      if (Math.abs(video.duration - period) > 0.05) {
+        return;
+      }
+      let delta = (video.currentTime - leader.currentTime) % period;
+      if (delta > period / 2) {
+        delta -= period;
+      } else if (delta < -period / 2) {
+        delta += period;
+      }
+      if (Math.abs(delta) <= SYNC_TOLERANCE) {
+        if (video.playbackRate !== 1) {
+          video.playbackRate = 1;
+        }
+        return;
+      }
+      if (
+        Math.abs(delta) > SYNC_SEEK_THRESHOLD &&
+        bufferedCovers(video, leader.currentTime)
+      ) {
+        video.playbackRate = 1;
+        video.currentTime = leader.currentTime;
+        return;
+      }
+      const trim = Math.max(
+        -SYNC_MAX_RATE_TRIM,
+        Math.min(SYNC_MAX_RATE_TRIM, -delta / 2),
+      );
+      video.playbackRate = 1 + trim;
+    });
+  });
+}
+
+setInterval(correctSyncDrift, 1000);
+
+function watchSyncGroups(root = document) {
+  root.querySelectorAll("[data-video-sync]").forEach((group) => {
+    if (group.dataset.syncWatched) {
+      return;
+    }
+    group.dataset.syncWatched = "true";
+    group.querySelectorAll("video").forEach((video) => {
+      video.addEventListener("canplaythrough", () => startSyncGroup(group));
+    });
+  });
+}
+
+// Bumped whenever the exported media changes. Assets keep their file names
+// across re-exports, and a re-export can even carry an older modified time than
+// the copy a browser already holds, which leaves stale media cached.
+const ASSET_VERSION = "20260912g";
+
+function versioned(url) {
+  return `${url}${url.includes("?") ? "&" : "?"}v=${ASSET_VERSION}`;
+}
+
 function loadVideo(video) {
   const source = video.querySelector("source[data-src]");
   if (source) {
-    source.src = source.dataset.src;
+    source.src = versioned(source.dataset.src);
     source.removeAttribute("data-src");
     video.load();
+  }
+  const group = video.closest("[data-video-sync]");
+  if (group) {
+    startSyncGroup(group);
+    return;
   }
   video.play().catch(() => {});
 }
@@ -743,7 +849,7 @@ const iframeObserver = new IntersectionObserver(
       const iframe = entry.target;
       if (entry.isIntersecting) {
         if (!iframe.dataset.loaded) {
-          iframe.src = iframe.dataset.src;
+          iframe.src = versioned(iframe.dataset.src);
           iframe.dataset.loaded = "true";
         }
       } else if (iframe.dataset.loaded) {
@@ -758,6 +864,7 @@ const iframeObserver = new IntersectionObserver(
 // teaser.js mounts its blocks after this file runs, so it re-uses this to
 // register whatever it just built.
 function observeLazyMedia(root = document) {
+  watchSyncGroups(root);
   root.querySelectorAll("[data-lazy-video]").forEach((video) => {
     videoObserver.observe(video);
   });
@@ -768,4 +875,4 @@ function observeLazyMedia(root = document) {
 
 observeLazyMedia();
 
-window.PuppeteerPage = { createCarousel, observeLazyMedia };
+window.PuppeteerPage = { createCarousel, observeLazyMedia, versioned };

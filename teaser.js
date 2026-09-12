@@ -289,12 +289,12 @@ function teaserRow(caseData, index, defaults) {
         ${pairs ? inputCards(caseData) : inputStack(caseData, defaults)}
 
         <figure class="media-card">
-          <figcaption class="media-title">Interactive Scene Puppet</figcaption>
+          <figcaption class="media-title">Point Cloud</figcaption>
           <div class="media-frame">
             <iframe
               data-lazy-iframe
               data-src="./viser-client/?playbackPath=../assets/${caseData.slug}-scene.viser"
-              title="Interactive 4D scene for ${caseData.title}"
+              title="Interactive point cloud for ${caseData.title}"
               loading="lazy"
               allow="fullscreen"
             ></iframe>
@@ -329,7 +329,7 @@ function columnHeadings() {
     <div class="teaser-column-headings" aria-hidden="true">
       <span></span>
       <span class="teaser-heading-input">Input<br>Image</span>
-      <span class="teaser-heading-puppet">Interactive Scene Puppet</span>
+      <span class="teaser-heading-puppet">Point Cloud</span>
       <span class="teaser-heading-depth">Depth Control</span>
       <span class="teaser-heading-video">Generated Video</span>
     </div>
@@ -423,7 +423,7 @@ function wireSeedSwitchers(root) {
         // Keep data-src in sync so the lazy observer restores the same seed.
         source.dataset.src = url;
         if (source.src) {
-          source.src = url;
+          source.src = window.PuppeteerPage.versioned(url);
           video.load();
           video.play().catch(() => {});
         }
