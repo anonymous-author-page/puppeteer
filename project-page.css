@@ -1428,6 +1428,13 @@ main.teaser-container {
   letter-spacing: -0.025em;
 }
 
+/* The shared heading caps its paragraph at 68ch, which otherwise leaves that
+   block hugging the left edge of a centred heading. */
+.authored-comparison-section .teaser-heading p {
+  margin-right: auto;
+  margin-left: auto;
+}
+
 .authored-scene-pair {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
