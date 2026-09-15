@@ -247,7 +247,9 @@ main.teaser-container {
 
 .case {
   display: grid;
-  grid-template-columns: minmax(215px, 225px) minmax(0, 1fr);
+  /* Wide enough for the busiest icon equation, bear + T-Rex + camera, so no
+     row has to scale its icons down to fit. */
+  grid-template-columns: minmax(242px, 252px) minmax(0, 1fr);
   align-items: center;
   gap: 6px;
   padding: 8px 0 10px;
@@ -303,9 +305,12 @@ main.teaser-container {
   white-space: nowrap;
 }
 
+/* Icons shrink together rather than spilling past the rail, so a row that
+   gains a module never drops the last one out of sight. */
 .feature-module {
   display: grid;
-  flex: none;
+  flex: 0 1 auto;
+  min-width: 0;
   height: 84px;
   place-items: center;
 }
@@ -319,7 +324,7 @@ main.teaser-container {
 }
 
 .is-camera-module {
-  width: 64px;
+  width: 56px;
 }
 
 .feature-plus {
@@ -821,7 +826,7 @@ main.teaser-container {
 
 @media (max-width: 1100px) {
   .case {
-    grid-template-columns: 225px minmax(0, 1fr);
+    grid-template-columns: 252px minmax(0, 1fr);
     align-items: flex-start;
   }
 
@@ -984,24 +989,14 @@ main.teaser-container {
   border-top: 1px solid var(--paper-line);
 }
 
-/* The T-Rex is a long 2.7:1 animal, so matching the bear's visual weight costs
-   width. Let the bear block's icons shrink proportionally instead of spilling
-   past the rail on the three-module row. */
-.bear-teaser-section .feature-module {
-  min-width: 0;
-  flex: 0 1 auto;
-}
-
+/* The bear ships at the camel's proportions, so the two teaser pages carry the
+   same visual weight in the rail. */
 .is-bear-module {
-  width: 72px;
+  width: 60px;
 }
 
 .is-trex-module {
-  width: 120px;
-}
-
-.bear-teaser-section .is-camera-module {
-  width: 56px;
+  width: 88px;
 }
 
 .bear-seed-switcher {
